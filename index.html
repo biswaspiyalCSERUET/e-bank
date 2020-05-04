@@ -10,7 +10,7 @@
 <body>
     
     <div id="login-area">
-        <h1 class="text-center">Welcome To E-Bank</h1>
+        <h1 class="text-center text-success">Welcome To E-Bank</h1>
         <div class="submit-area">
             <h4>Login</h4>
             <input type="text" class="form-control" placeholder="E-mail">
@@ -33,7 +33,7 @@
                 <div class="col-md-4">
                     <div class="withdraw status">
                         <h5>Withdraw</h5>
-                        <h2>$00</h2>
+                        <h2>$ <span id="currentWithdraw" >00</span> </h2>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -94,7 +94,13 @@
         const withdrawBtn=document.getElementById("addWithdraw");
         withdrawBtn.addEventListener("click",function(){
             const withdrawNumber=getInputNumber("withdrawAmount");
-            console.log(withdrawNumber);
+            
+            updateSpanText("currentWithdraw",withdrawNumber);
+
+            updateSpanText("currentBalance",-1*withdrawNumber);
+
+            document.getElementById("withdrawAmount").value="";
+
         })
 
         function getInputNumber(id){
@@ -102,12 +108,12 @@
             const amountNumber=parseFloat(amount);
             return amountNumber;
         }
-        function updateSpanText(id,depositNumber){
+        function updateSpanText(id,addedNumber){
             //read old value
             const current=document.getElementById(id).innerText;
             const currentNumber=parseFloat(current);
             //add,write and get updated value
-            const total=depositNumber+currentNumber;
+            const total=addedNumber+currentNumber;
             document.getElementById(id).innerText=total;
         }
 
